@@ -1,0 +1,134 @@
+<?xml version="1.0"?>  
+<robot name="smartcar">  
+
+  <link name="base_link">  
+    <visual>  
+      <geometry>  
+        <!-- <box size="0.25 .16 .05"/>   -->
+        <box size=".3 .2 .1"/>
+    </geometry>  
+    <origin rpy="0 0 1.57075" xyz="0 0 .05"/>  
+    <material name="blue">  
+        <color rgba="0 0 .8 1"/>  
+    </material>  
+    </visual>  
+  </link>  
+
+  <link name="right_front_wheel">  
+      <visual>  
+        <geometry>  
+          <cylinder length=".05" radius="0.05"/>  
+        </geometry>  
+        <material name="black">  
+          <color rgba="0 0 0 1"/>  
+        </material>  
+      </visual>  
+  </link>  
+
+  <joint name="right_front_wheel_joint" type="continuous">  
+    <axis xyz="0 0 1"/>  
+    <parent link="base_link"/>  
+    <child link="right_front_wheel"/>  
+    <origin rpy="0 1.57075 0" xyz="0.15 0.1 0"/>  
+    <limit effort="100" velocity="100"/>  
+    <joint_properties damping="0.0" friction="0.0"/>  
+  </joint>  
+
+  <link name="right_back_wheel">  
+    <visual>  
+      <geometry>  
+        <cylinder length=".05" radius="0.05"/>  
+      </geometry>  
+      <material name="black">  
+        <color rgba="0 0 0 1"/> 
+      </material>  
+    </visual>  
+  </link>  
+
+  <joint name="right_back_wheel_joint" type="continuous">  
+    <axis xyz="0 0 1"/>  
+    <parent link="base_link"/>  
+    <child link="right_back_wheel"/>  
+    <origin rpy="0 1.57075 0" xyz="0.15 -0.1 0"/>  
+    <limit effort="100" velocity="100"/>  
+    <joint_properties damping="0.0" friction="0.0"/>  
+  </joint> 
+ 
+  <link name="left_front_wheel">  
+    <visual>  
+      <geometry>  
+        <cylinder length=".05" radius="0.05"/>  
+      </geometry>  
+      <material name="black">  
+        <color rgba="0 0 0 1"/>  
+      </material>  
+    </visual>  
+  </link> 
+
+  <joint name="left_front_wheel_joint" type="continuous">  
+    <axis xyz="0 0 1"/>  
+    <parent link="base_link"/>  
+    <child link="left_front_wheel"/>  
+    <origin rpy="0 1.57075 0" xyz="-0.15 0.1 0"/>  
+    <limit effort="100" velocity="100"/>  
+    <joint_properties damping="0.0" friction="0.0"/>  
+  </joint>  
+
+  <link name="left_back_wheel">  
+    <visual>  
+      <geometry>  
+        <cylinder length=".05" radius="0.05"/>  
+      </geometry>  
+      <material name="black">  
+        <color rgba="0 0 0 1"/>  
+      </material>  
+    </visual>  
+  </link>  
+
+  <joint name="left_back_wheel_joint" type="continuous">  
+    <axis xyz="0 0 1"/>  
+    <parent link="base_link"/>  
+    <child link="left_back_wheel"/>  
+    <origin rpy="0 1.57075 0" xyz="-0.15 -0.1 0"/>  
+    <limit effort="100" velocity="100"/>  
+    <joint_properties damping="0.0" friction="0.0"/>  
+  </joint>  
+
+
+<gazebo>
+  <plugin name="skid_steer_drive_controller" filename="libgazebo_ros_skid_steer_drive.so">
+    <updateRate>50.0</updateRate>
+    <robotNamespace></robotNamespace>
+    <leftFrontJoint>base_to_left_front_wheel</leftFrontJoint>
+    <leftRearJoint>base_to_left_back_wheel</leftRearJoint>
+    <rightFrontJoint>base_to_right_front_wheel</rightFrontJoint>
+    <rightRearJoint>base_to_right_back_wheel</rightRearJoint>
+    <wheelSeparation>4</wheelSeparation>
+    <wheelDiameter>0.1</wheelDiameter>
+    <commandTopic>cmd_vel</commandTopic>
+    <odometryTopic>odom</odometryTopic>
+    <robotBaseFrame>base_footprint</robotBaseFrame>
+    <odometryFrame>odom</odometryFrame>
+    <torque>1</torque>
+    <topicName>cmd_vel</topicName>
+    <broadcastTF>1</broadcastTF>
+  </plugin>
+</gazebo>
+
+
+<gazebo>
+    <plugin name="gazebo_ros_control" filename="libgazebo_ros_control.so">
+      <robotNamespace>/robot</robotNamespace>
+      <legacyModeNS>true</legacyModeNS>
+    </plugin>
+  </gazebo>
+
+
+
+
+
+
+
+
+
+</robot>
