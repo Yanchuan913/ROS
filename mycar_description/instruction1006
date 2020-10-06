@@ -1,0 +1,7 @@
+
+roslaunch mycar_description MAZE1006.launch
+roslaunch mycar_description mycar_with_laser.launch
+
+
+rosrun teleop_twist_keyboard teleop_twist_keyboard.py 
+
